@@ -2,8 +2,6 @@
 
 one:
   name: MyString
-  composer: MyString
 
 two:
   name: MyString
-  composer: MyString

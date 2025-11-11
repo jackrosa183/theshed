@@ -10,9 +10,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_11_11_170659) do
+ActiveRecord::Schema[8.1].define(version: 2025_11_11_213612) do
   create_table "tunes", force: :cascade do |t|
-    t.string "composer"
     t.datetime "created_at", null: false
     t.string "name"
     t.datetime "updated_at", null: false

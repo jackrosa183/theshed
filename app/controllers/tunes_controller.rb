@@ -65,6 +65,6 @@ class TunesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def tune_params
-      params.expect(tune: [ :name, :composer ])
+      params.expect(tune: [ :name ])
     end
 end
