@@ -1,0 +1,11 @@
+<% content_for :title, "New tune" %>
+
+<h1>New tune</h1>
+
+<%= render "form", tune: @tune %>
+
+<br>
+
+<div>
+  <%= link_to "Back to tunes", tunes_path %>
+</div>
