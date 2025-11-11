@@ -1,11 +1,6 @@
 <% content_for :title, "New tune" %>
-
-<h1>New tune</h1>
-
-<%= render "form", tune: @tune %>
-
-<br>
-
-<div>
-  <%= link_to "Back to tunes", tunes_path %>
+<div class="flex flex-col justify-center mx-auto gap-2">
+  <h1 class="title">New tune</h1>
+  <%= render "form", tune: @tune %>
+  <br>
 </div>

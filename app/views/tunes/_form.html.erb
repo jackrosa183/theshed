@@ -1,27 +1,26 @@
-<%= form_with(model: tune) do |form| %>
+<%= form_with(model: tune, class: "mx-auto flex flex-col items-center gap-4") do |form| %>
   <% if tune.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(tune.errors.count, "error") %> prohibited this tune from being saved:</h2>
-
-      <ul>
+    <div class="bg-red-50 border border-red-200 rounded-lg p-4 mb-6">
+      <h2 class="text-red-800 font-semibold text-lg mb-2">
+        <%= pluralize(tune.errors.count, "error") %> prohibited this tune from being saved:
+      </h2>
+      <ul class="list-disc list-inside text-red-700 space-y-1">
         <% tune.errors.each do |error| %>
           <li><%= error.full_message %></li>
         <% end %>
       </ul>
     </div>
   <% end %>
-
-  <div>
-    <%= form.label :name, style: "display: block" %>
-    <%= form.text_field :name %>
+  <div class="mb-6">
+    <%= form.label :name, class: "block text-sm font-medium text-gray-700" %>
+    <%= form.text_field :name, class: "input" %>
   </div>
-
-  <div>
-    <%= form.label :composer, style: "display: block" %>
-    <%= form.text_field :composer %>
+  <div class="mb-6">
+    <%= form.label :composer, class: "block text-sm font-medium text-gray-700" %>
+    <%= form.text_field :composer, class: "input" %>
   </div>
-
-  <div>
-    <%= form.submit %>
+  <div class="flex gap-2">
+    <%= link_to "Back", tunes_path, class: "btn btn-secondary" %>
+    <%= form.submit class: "btn btn-primary" %>
   </div>
 <% end %>

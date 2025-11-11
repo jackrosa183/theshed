@@ -1,16 +1,12 @@
 <% content_for :title, "Tunes" %>
-
 <div class="flex flex-col justify-center mx-auto gap-2">
-  <h1 class="text-8xl">Tunes</h1>
-
+  <h1 class="title">Tunes</h1>
   <div id="tunes">
     <% @tunes.each do |tune| %>
-      <%= render tune %>
-      <p>
-        <%= link_to "Show this tune", tune %>
-      </p>
+      <%= link_to tune do %>
+        <%= render tune %>
+      <% end %>
     <% end %>
   </div>
-
-  <%= link_to "New tune", new_tune_path %>
+  <%= link_to "New tune", new_tune_path, class: "btn btn-primary" %>
 </div>
