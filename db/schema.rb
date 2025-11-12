@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_11_11_214442) do
+ActiveRecord::Schema[8.1].define(version: 2025_11_12_183025) do
   create_table "composers", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "name"
@@ -18,9 +18,22 @@ ActiveRecord::Schema[8.1].define(version: 2025_11_11_214442) do
     t.index ["name"], name: "index_composers_on_name", unique: true
   end
 
+  create_table "composers_tunes", force: :cascade do |t|
+    t.integer "composer_id", null: false
+    t.datetime "created_at", null: false
+    t.integer "tune_id", null: false
+    t.datetime "updated_at", null: false
+    t.index ["composer_id", "tune_id"], name: "index_composers_tunes_on_composer_id_and_tune_id", unique: true
+    t.index ["composer_id"], name: "index_composers_tunes_on_composer_id"
+    t.index ["tune_id"], name: "index_composers_tunes_on_tune_id"
+  end
+
   create_table "tunes", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "name"
     t.datetime "updated_at", null: false
   end
+
+  add_foreign_key "composers_tunes", "composers"
+  add_foreign_key "composers_tunes", "tunes"
 end
