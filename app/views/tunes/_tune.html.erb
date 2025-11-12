@@ -1,5 +1,8 @@
 <div id="<%= dom_id tune %>" class="rounded-lg border border-neutral-300 p-4 bg-white shadow-md">
   <div class="font-semibold italic text-lg">
-    <%= tune.name %>
+    <%= tune.title %>
+  </div>
+  <div class="text-gray-600">
+    <%= tune.composers.map(&:name).join(", ") %>
   </div>
 </div>

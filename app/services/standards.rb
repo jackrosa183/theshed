@@ -5180,8 +5180,10 @@
     "composers" => "Allie Wrubel"
   }
 ].each do |composition|
-  Tune.find_or_create_by(title: composition["title"])
-  composition.composers.split(", ").each do |composer_name|
-    Composer.find_or_create_by(name: composer_name)
-  end
+  composers =
+    composition.composers.split(", ").map do |composer_name|
+      Composer.find_or_create_by(name: composer_name)
+    end
+
+  Tune.find_or_create_by(title: composition[:title], composers: composers)
 end

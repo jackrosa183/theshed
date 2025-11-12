@@ -1,9 +1,9 @@
 class TunesController < ApplicationController
-  before_action :set_tune, only: %i[ show edit update destroy ]
+  before_action :set_tune, only: %i[show edit update destroy]
 
   # GET /tunes or /tunes.json
   def index
-    @tunes = Tune.all
+    @pagy, @tunes = pagy(Tune.all, limit: 25)
   end
 
   # GET /tunes/1 or /tunes/1.json
@@ -58,13 +58,14 @@ class TunesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_tune
-      @tune = Tune.find(params.expect(:id))
-    end
 
-    # Only allow a list of trusted parameters through.
-    def tune_params
-      params.expect(tune: [ :name ])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_tune
+    @tune = Tune.find(params.expect(:id))
+  end
+
+  # Only allow a list of trusted parameters through.
+  def tune_params
+    params.expect(tune: [:title])
+  end
 end
