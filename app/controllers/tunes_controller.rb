@@ -11,7 +11,7 @@ class TunesController < ApplicationController
         .distinct
     end
 
-    tunes = tunes.left_joins(:shed_statuses)
+    tunes = tunes.alphabetical.left_joins(:shed_statuses)
       .where(shed_statuses: {user_id: [Current.user.id, nil]})
       .select("tunes.*, shed_statuses.status as current_user_shed_status")
 
@@ -52,7 +52,9 @@ class TunesController < ApplicationController
   end
 
   def create
-    @tune = Tune.new(tune_params.except(:shed_status))
+    @tune = Tune.new(tune_params.except(:shed_status, :composer_names))
+    composers = tune_params[:composer_names].to_s.split(",").map(&:strip).reject(&:blank?)
+    @tune.composers = composers.map { |name| Composer.find_or_create_by(name: name) }
 
     respond_to do |format|
       if @tune.save
@@ -93,7 +95,7 @@ class TunesController < ApplicationController
 
   def tune_params
     if Current.user.is_admin
-      params.require(:tune).permit(:title, :shed_status)
+      params.require(:tune).permit(:title, :shed_status, :composer_names)
     else
       params.require(:tune).permit(:shed_status)
     end
