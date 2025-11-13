@@ -34,5 +34,7 @@
       </div>
     <% end %>
   </div>
-  <%= link_to "New tune", new_tune_path, class: "btn btn-primary" %>
+  <% if Current.user.is_admin %>
+    <%= link_to "New tune", new_tune_path, class: "btn btn-primary" %>
+  <% end %>
 </div>

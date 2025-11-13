@@ -11,10 +11,12 @@
       </ul>
     </div>
   <% end %>
-  <div class="mb-6">
-    <%= form.label :title, class: "block text-sm font-medium text-gray-700" %>
-    <%= form.text_field :title, class: "input" %>
-  </div>
+  <% if Current.user.is_admin %>
+    <div class="mb-6">
+      <%= form.label :title, class: "block text-sm font-medium text-gray-700" %>
+      <%= form.text_field :title, class: "input" %>
+    </div>
+  <% end %>
   <div class="mb-6">
     <%= form.label :shed_status, "Shed Status", class: "block text-sm font-medium text-gray-700" %>
     <%= form.select :shed_status,

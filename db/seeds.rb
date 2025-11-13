@@ -1,6 +1,13 @@
 User.find_or_create_by!(email_address: "admin@example.com") do |user|
   user.password = "password"
   user.password_confirmation = "password"
+  user.is_admin = true
+end
+
+User.find_or_create_by!(email_address: "user@example.com") do |user|
+  user.password = "password"
+  user.password_confirmation = "password"
+  user.is_admin = false
 end
 
 [

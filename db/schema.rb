@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_11_13_210256) do
+ActiveRecord::Schema[8.1].define(version: 2025_11_13_212031) do
   create_table "composers", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "name"
@@ -39,7 +39,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_11_13_210256) do
 
   create_table "shed_statuses", force: :cascade do |t|
     t.datetime "created_at", null: false
-    t.string "status", default: "never_heard", null: false
+    t.string "status", default: "heard", null: false
     t.integer "tune_id", null: false
     t.datetime "updated_at", null: false
     t.integer "user_id", null: false

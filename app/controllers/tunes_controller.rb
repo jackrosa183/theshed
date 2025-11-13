@@ -37,9 +37,13 @@ class TunesController < ApplicationController
   end
 
   def new
-    @tune = Tune.new
-    @shed_status_options = [["None", "none"]] + ShedStatus.statuses.keys.map { |k| [k.titleize, k] }
-    @current_shed_status = "none"
+    if Current.user.is_admin
+      @tune = Tune.new
+      @shed_status_options = [["None", "none"]] + ShedStatus.statuses.keys.map { |k| [k.titleize, k] }
+      @current_shed_status = "none"
+    else
+      redirect_to root_path
+    end
   end
 
   def edit
@@ -88,7 +92,11 @@ class TunesController < ApplicationController
   end
 
   def tune_params
-    params.expect(tune: [:title, :shed_status])
+    if Current.user.is_admin
+      params.require(:tune).permit(:title, :shed_status)
+    else
+      params.require(:tune).permit(:shed_status)
+    end
   end
 
   def update_shed_status(tune, status)
