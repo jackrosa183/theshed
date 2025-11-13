@@ -2,16 +2,34 @@
 <div class="flex flex-col gap-2 items-center w-full">
   <h1 class="title">Tunes</h1>
   <div class="flex flex-col gap-2 w-full max-w-2xl">
-    <div id="tunes" class="flex flex-col gap-2">
-      <% @tunes.each do |tune| %>
-        <%= link_to tune do %>
-          <%= render tune %>
+    <%= form_with url: tunes_path, method: :get, class: "mb-4 relative", data: { controller: "search", turbo_frame: "tunes_list" } do |f| %>
+      <%= f.text_field :query,
+          placeholder: "Search tunes or composers...",
+          class: "w-full px-4 py-2 pr-10 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500",
+          value: params[:query],
+          data: { search_target: "input", action: "input->search#search input->search#toggleClear" } %>
+      <button
+        type="button"
+        class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 hidden"
+        data-search-target="clearButton"
+        data-action="click->search#clear">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+        </svg>
+      </button>
+    <% end %>
+    <%= turbo_frame_tag "tunes_list" do %>
+      <div id="tunes" class="flex flex-col gap-2">
+        <% @tunes.each do |tune| %>
+          <%= link_to tune, data: { turbo_frame: "_top" } do %>
+            <%= render tune %>
+          <% end %>
         <% end %>
-      <% end %>
-    </div>
-    <div class="flex justify-center">
-      <%== @pagy.series_nav(slots: 9, anchor_string: 'data-turbo-frame="tunes_list"') %>
-    </div>
+      </div>
+      <div class="flex justify-center mt-4">
+        <%== @pagy.series_nav(slots: 9, anchor_string: 'data-turbo-frame="tunes_list"') %>
+      </div>
+    <% end %>
   </div>
   <%= link_to "New tune", new_tune_path, class: "btn btn-primary" %>
 </div>

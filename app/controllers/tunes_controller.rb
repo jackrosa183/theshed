@@ -3,7 +3,16 @@ class TunesController < ApplicationController
 
   # GET /tunes or /tunes.json
   def index
-    @pagy, @tunes = pagy(Tune.all, limit: 25)
+    tunes = if params[:query].present?
+      Tune.joins(:composers)
+        .where("tunes.title LIKE ? OR composers.name LIKE ?",
+          "%#{params[:query]}%", "%#{params[:query]}%")
+        .distinct
+    else
+      Tune.all
+    end
+
+    @pagy, @tunes = pagy(tunes, limit: 25)
   end
 
   # GET /tunes/1 or /tunes/1.json
