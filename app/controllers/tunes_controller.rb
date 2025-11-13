@@ -1,5 +1,5 @@
 class TunesController < ApplicationController
-  before_action :set_tune, only: %i[show edit update destroy]
+  before_action :set_tune, only: %i[show edit update]
 
   # GET /tunes or /tunes.json
   def index
@@ -44,16 +44,6 @@ class TunesController < ApplicationController
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @tune.errors, status: :unprocessable_entity }
       end
-    end
-  end
-
-  # DELETE /tunes/1 or /tunes/1.json
-  def destroy
-    @tune.destroy!
-
-    respond_to do |format|
-      format.html { redirect_to tunes_path, notice: "Tune was successfully destroyed.", status: :see_other }
-      format.json { head :no_content }
     end
   end
 

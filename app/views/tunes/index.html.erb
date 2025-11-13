@@ -1,7 +1,7 @@
 <% content_for :title, "Tunes" %>
 <div class="flex flex-col gap-2 items-center w-full">
   <h1 class="title">Tunes</h1>
-  <%= turbo_frame_tag "tunes_list", class: "flex flex-col gap-2 w-full max-w-2xl" do %>
+  <div class="flex flex-col gap-2 w-full max-w-2xl">
     <div id="tunes" class="flex flex-col gap-2">
       <% @tunes.each do |tune| %>
         <%= link_to tune do %>
@@ -12,6 +12,6 @@
     <div class="flex justify-center">
       <%== @pagy.series_nav(slots: 9, anchor_string: 'data-turbo-frame="tunes_list"') %>
     </div>
-  <% end %>
+  </div>
   <%= link_to "New tune", new_tune_path, class: "btn btn-primary" %>
 </div>

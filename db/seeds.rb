@@ -117,10 +117,6 @@ end
     composers: "Fats Waller, Harry Brooks"
   },
   {
-    title: "Ain't No Use",
-    composers: "Duke Ellington"
-  },
-  {
     title: "Ain't That a Kick in the Head?",
     composers: "Jimmy Van Heusen"
   },
@@ -1191,6 +1187,10 @@ end
   {
     title: "Deep River",
     composers: "Traditional Spiritual"
+  },
+  {
+    title: "Deluge",
+    composers: "Wayne Short"
   },
   {
     title: "Desafinado",
@@ -2355,6 +2355,10 @@ end
   {
     title: "The Inch Worm",
     composers: "Frank Loesser"
+  },
+  {
+    title: "Infant Eyes",
+    composers: "Wayne Shorter"
   },
   {
     title: "Inner Urge",
@@ -4205,6 +4209,10 @@ end
     composers: "Kurt Weill"
   },
   {
+    title: "Speak No Evil",
+    composers: "Wayne Shorter"
+  },
+  {
     title: "The Sphinx",
     composers: "Ornette Coleman"
   },
@@ -4577,6 +4585,10 @@ end
     composers: "Jule Styne"
   },
   {
+    title: "Think of One",
+    composers: "Thelonious Monk"
+  },
+  {
     title: "This Can't Be Love",
     composers: "Richard Rodgers"
   },
@@ -4733,6 +4745,10 @@ end
     composers: "Bobby Collazo"
   },
   {
+    title: "Ugly Beauty",
+    composers: "Thelonious Monk"
+  },
+  {
     title: "Undecided",
     composers: "Charlie Shavers"
   },
@@ -4803,6 +4819,10 @@ end
   {
     title: "Waltz for Debby",
     composers: "Bill Evans"
+  },
+  {
+    title: "Warm Valley",
+    composers: "Duke Ellington"
   },
   {
     title: "Washboard Blues",

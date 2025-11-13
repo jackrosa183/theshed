@@ -38,12 +38,4 @@ class TunesControllerTest < ActionDispatch::IntegrationTest
     patch tune_url(@tune), params: {tune: {title: @tune.title}}
     assert_redirected_to tune_url(@tune)
   end
-
-  test "should destroy tune" do
-    assert_difference("Tune.count", -1) do
-      delete tune_url(@tune)
-    end
-
-    assert_redirected_to tunes_url
-  end
 end
