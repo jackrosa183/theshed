@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_11_12_220536) do
+ActiveRecord::Schema[8.1].define(version: 2025_11_13_171733) do
   create_table "composers", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "name"
@@ -37,6 +37,15 @@ ActiveRecord::Schema[8.1].define(version: 2025_11_12_220536) do
     t.index ["user_id"], name: "index_sessions_on_user_id"
   end
 
+  create_table "shed_statuses", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.integer "tune_id", null: false
+    t.datetime "updated_at", null: false
+    t.integer "user_id", null: false
+    t.index ["tune_id"], name: "index_shed_statuses_on_tune_id"
+    t.index ["user_id"], name: "index_shed_statuses_on_user_id"
+  end
+
   create_table "tunes", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "title"
@@ -54,4 +63,6 @@ ActiveRecord::Schema[8.1].define(version: 2025_11_12_220536) do
   add_foreign_key "composers_tunes", "composers"
   add_foreign_key "composers_tunes", "tunes"
   add_foreign_key "sessions", "users"
+  add_foreign_key "shed_statuses", "tunes"
+  add_foreign_key "shed_statuses", "users"
 end
