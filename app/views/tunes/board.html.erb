@@ -1,0 +1,40 @@
+<% content_for :title, "Shed Status Board" %>
+<div class="w-full">
+  <h1 class="title text-center mb-6">🛖</h1>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 px-4">
+    <% @grouped_tunes.each do |status, tunes| %>
+      <div class="flex flex-col gap-2">
+        <div class="<%= ShedStatus.new(status: status).status_color %> rounded-lg p-3 font-bold text-center sticky top-0 shadow-md">
+          <%= status.to_s.humanize %>
+          <span class="text-sm font-normal">(<%= tunes.count %>)</span>
+        </div>
+
+        <div class="flex flex-col gap-2 max-h-[calc(50vh-12rem)] overflow-y-auto">
+          <% tunes.each do |tune| %>
+            <%= link_to tune, data: { turbo_frame: "_top" }, class: "block" do %>
+              <div class="rounded-lg border border-neutral-300 p-3 bg-white shadow-sm hover:shadow-md transition-shadow">
+                <div class="font-semibold text-sm">
+                  <%= tune.title %>
+                </div>
+                <div class="text-xs text-gray-600 mt-1">
+                  <%= tune.composers.map(&:name).join(", ") %>
+                </div>
+              </div>
+            <% end %>
+          <% end %>
+
+          <% if tunes.empty? %>
+            <div class="text-gray-400 text-sm italic text-center p-4">
+              No tunes yet
+            </div>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="flex justify-center mt-6">
+    <%= link_to "Back to List", tunes_path, class: "btn btn-secondary" %>
+  </div>
+</div>

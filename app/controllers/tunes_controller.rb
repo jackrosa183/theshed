@@ -1,39 +1,58 @@
 class TunesController < ApplicationController
   before_action :set_tune, only: %i[show edit update]
 
-  # GET /tunes or /tunes.json
   def index
-    tunes = if params[:query].present?
-      Tune.joins(:composers)
+    tunes = Tune.includes(:composers)
+
+    if params[:query].present?
+      tunes = tunes.joins(:composers)
         .where("tunes.title LIKE ? OR composers.name LIKE ?",
           "%#{params[:query]}%", "%#{params[:query]}%")
         .distinct
-    else
-      Tune.all
     end
 
+    tunes = tunes.left_joins(:shed_statuses)
+      .where(shed_statuses: {user_id: [Current.user.id, nil]})
+      .select("tunes.*, shed_statuses.status as current_user_shed_status")
+
     @pagy, @tunes = pagy(tunes, limit: 25)
+
+    @tunes.each do |tune|
+      tune.define_singleton_method(:current_user_shed_status_color) do
+        ShedStatus.new(status: current_user_shed_status).status_color if current_user_shed_status
+      end
+    end
   end
 
-  # GET /tunes/1 or /tunes/1.json
+  def board
+    @grouped_tunes = ShedStatus.statuses.keys.index_with do |status|
+      Tune.includes(:composers)
+        .joins(:shed_statuses)
+        .where(shed_statuses: {user_id: Current.user.id, status: status})
+        .order(:title)
+    end
+  end
+
   def show
   end
 
-  # GET /tunes/new
   def new
     @tune = Tune.new
+    @shed_status_options = [["None", "none"]] + ShedStatus.statuses.keys.map { |k| [k.titleize, k] }
+    @current_shed_status = "none"
   end
 
-  # GET /tunes/1/edit
   def edit
+    @shed_status_options = [["None", "none"]] + ShedStatus.statuses.keys.map { |k| [k.titleize, k] }
+    @current_shed_status = Current.user ? @tune.shed_statuses.find_by(user: Current.user)&.status || "none" : "none"
   end
 
-  # POST /tunes or /tunes.json
   def create
-    @tune = Tune.new(tune_params)
+    @tune = Tune.new(tune_params.except(:shed_status))
 
     respond_to do |format|
       if @tune.save
+        update_shed_status(@tune, params[:tune][:shed_status]) if params[:tune][:shed_status].present?
         format.html { redirect_to @tune, notice: "Tune was successfully created." }
         format.json { render :show, status: :created, location: @tune }
       else
@@ -43,10 +62,10 @@ class TunesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /tunes/1 or /tunes/1.json
   def update
     respond_to do |format|
-      if @tune.update(tune_params)
+      if @tune.update(tune_params.except(:shed_status))
+        update_shed_status(@tune, params[:tune][:shed_status]) if params[:tune][:shed_status].present?
         format.html { redirect_to @tune, notice: "Tune was successfully updated.", status: :see_other }
         format.json { render :show, status: :ok, location: @tune }
       else
@@ -58,13 +77,26 @@ class TunesController < ApplicationController
 
   private
 
-  # Use callbacks to share common setup or constraints between actions.
   def set_tune
     @tune = Tune.find(params.expect(:id))
+
+    shed_status = @tune.shed_statuses.find_by(user: Current.user)
+    status_value = shed_status&.status
+    color_value = shed_status&.status_color
+    @tune.define_singleton_method(:current_user_shed_status) { status_value }
+    @tune.define_singleton_method(:current_user_shed_status_color) { color_value }
   end
 
-  # Only allow a list of trusted parameters through.
   def tune_params
-    params.expect(tune: [:title])
+    params.expect(tune: [:title, :shed_status])
+  end
+
+  def update_shed_status(tune, status)
+    if status == "none"
+      tune.shed_statuses.where(user: Current.user).destroy_all
+    else
+      shed_status = tune.shed_statuses.find_or_initialize_by(user: Current.user)
+      shed_status.update(status: status)
+    end
   end
 end

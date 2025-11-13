@@ -244,6 +244,10 @@
     "composers" => "Arthur Schwartz"
   },
   {
+    "title" => "Along Came Betty",
+    "composers" => "Benny Golson"
+  },
+  {
     "title" => "Alright, Okay, You Win",
     "composers" => "Sid Wyche, Mayme Watts"
   },

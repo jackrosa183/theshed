@@ -1,8 +1,13 @@
-<div id="<%= dom_id tune %>" class="rounded-lg border border-neutral-300 p-4 bg-white shadow-md">
+<div id="<%= dom_id tune %>" class="rounded-lg border border-neutral-300 p-4 bg-white shadow-md flex flex-col gap-2 hover:shadow-lg transition-shadow">
   <div class="font-semibold italic text-lg">
     <%= tune.title %>
   </div>
   <div class="text-gray-600">
     <%= tune.composers.map(&:name).join(", ") %>
   </div>
+  <% if tune.current_user_shed_status.present? %>
+    <div class="flex">
+      <%= render "tunes/shed_status", shed_status: tune.current_user_shed_status.titleize, color: tune.current_user_shed_status_color %>
+    </div>
+  <% end %>
 </div>
