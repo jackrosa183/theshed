@@ -11,12 +11,12 @@
       </ul>
     </div>
   <% end %>
-  <% if Current.user.is_admin %>
+  <% if tune.user_id == Current.user.id or Current.user.is_admin %>
     <div class="mb-6">
       <%= form.label :title, class: "block text-sm font-medium text-gray-700" %>
       <%= form.text_field :title, class: "input" %>
       <%= form.label :composers, class: "block text-sm font-medium text-gray-700" %>
-      <%= form.text_field :composer_names, class: "input", placeholder: "Separate multiple composers with commas" %>
+      <%= form.text_field :composer_names, value: @composer_names, class: "input", placeholder: "Separate multiple composers with commas" %>
     </div>
   <% end %>
   <div class="mb-6">
