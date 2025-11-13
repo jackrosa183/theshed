@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   resource :session
   resources :passwords, param: :token
-  resources :tunes, except: [:destroy] do
+  resources :tunes, except: [ :destroy ] do
     collection do
       get :board
     end

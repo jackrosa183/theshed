@@ -12,7 +12,7 @@ class TunesController < ApplicationController
     end
 
     tunes = tunes.alphabetical.left_joins(:shed_statuses)
-      .where(shed_statuses: {user_id: [Current.user.id, nil]})
+      .where(shed_statuses: { user_id: [ Current.user.id, nil ] })
       .select("tunes.*, shed_statuses.status as current_user_shed_status")
 
     @pagy, @tunes = pagy(tunes, limit: 25)
@@ -28,7 +28,7 @@ class TunesController < ApplicationController
     @grouped_tunes = ShedStatus.statuses.keys.index_with do |status|
       Tune.includes(:composers)
         .joins(:shed_statuses)
-        .where(shed_statuses: {user_id: Current.user.id, status: status})
+        .where(shed_statuses: { user_id: Current.user.id, status: status })
         .order(:title)
     end
   end
@@ -39,7 +39,7 @@ class TunesController < ApplicationController
   def new
     if Current.user.is_admin
       @tune = Tune.new
-      @shed_status_options = [["None", "none"]] + ShedStatus.statuses.keys.map { |k| [k.titleize, k] }
+      @shed_status_options = [ [ "None", "none" ] ] + ShedStatus.statuses.keys.map { |k| [ k.titleize, k ] }
       @current_shed_status = "none"
     else
       redirect_to root_path
@@ -47,7 +47,7 @@ class TunesController < ApplicationController
   end
 
   def edit
-    @shed_status_options = [["None", "none"]] + ShedStatus.statuses.keys.map { |k| [k.titleize, k] }
+    @shed_status_options = [ [ "None", "none" ] ] + ShedStatus.statuses.keys.map { |k| [ k.titleize, k ] }
     @current_shed_status = Current.user ? @tune.shed_statuses.find_by(user: Current.user)&.status || "none" : "none"
   end
 

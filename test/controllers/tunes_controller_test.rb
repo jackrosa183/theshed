@@ -18,7 +18,7 @@ class TunesControllerTest < ActionDispatch::IntegrationTest
 
   test "should create tune" do
     assert_difference("Tune.count") do
-      post tunes_url, params: {tune: {title: @tune.title}}
+      post tunes_url, params: { tune: { title: @tune.title } }
     end
 
     assert_redirected_to tune_url(Tune.last)
@@ -35,7 +35,7 @@ class TunesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update tune" do
-    patch tune_url(@tune), params: {tune: {title: @tune.title}}
+    patch tune_url(@tune), params: { tune: { title: @tune.title } }
     assert_redirected_to tune_url(@tune)
   end
 end

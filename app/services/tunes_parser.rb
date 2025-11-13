@@ -1,6 +1,6 @@
 class TunesParser
   def self.populate_tunes_and_composers
-    standards_data = JSON.parse(File.read(Rails.root.join("app", "services", "standards.json")))
+    JSON.parse(File.read(Rails.root.join("app", "services", "standards.json")))
 
     debugger
 
