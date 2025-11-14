@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   resource :session
   resources :passwords, param: :token
-  resources :tunes, except: [ :destroy ] do
+  resources :tunes, except: [:destroy] do
     collection do
       get :board
     end
@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   # get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
   # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
 
+  get "practice" => "practice#index", :as => :practice
   # Defines the root path route ("/")
   root "tunes#index"
 end

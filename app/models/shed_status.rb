@@ -1,8 +1,8 @@
 class ShedStatus < ApplicationRecord
   belongs_to :user
   belongs_to :tune
-  enum :status, { heard: "heard", need_to_learn: "need_to_learn",
-                 learning: "learning", brushing_up: "brushing_up", call_it: "call_it" }
+  enum :status, {heard: "heard", need_to_learn: "need_to_learn",
+                 learning: "learning", brushing_up: "brushing_up", call_it: "call_it"}
 
   def self.status_display_name(status_key)
     status_key.titleize

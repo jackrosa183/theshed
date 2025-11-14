@@ -28,7 +28,7 @@ class TunesController < ApplicationController
     @grouped_tunes = ShedStatus.statuses.keys.index_with do |status|
       Tune.includes(:composers)
         .joins(:shed_statuses)
-        .where(shed_statuses: { user_id: Current.user.id, status: status })
+        .where(shed_statuses: {user_id: Current.user.id, status: status})
         .order(:title)
     end
   end
@@ -110,7 +110,7 @@ class TunesController < ApplicationController
   private
 
   def shed_status_options
-    [ [ "None", "none" ] ] + ShedStatus.statuses.keys.map { |k| [ k.titleize, k ] }
+    [["None", "none"]] + ShedStatus.statuses.keys.map { |k| [k.titleize, k] }
   end
 
   def set_tune

@@ -38,7 +38,7 @@ class TunesControllerTest < ActionDispatch::IntegrationTest
 
   test "admin should create tune without user_id" do
     assert_difference("Tune.count") do
-      post tunes_url, params: { tune: { title: "New Tune", composer_names: "John Coltrane", shed_status: "learning" } }
+      post tunes_url, params: {tune: {title: "New Tune", composer_names: "John Coltrane", shed_status: "learning"}}
     end
 
     created_tune = Tune.last
@@ -51,7 +51,7 @@ class TunesControllerTest < ActionDispatch::IntegrationTest
     sign_in_as(@regular_user)
 
     assert_difference("Tune.count") do
-      post tunes_url, params: { tune: { title: "User Tune", composer_names: "Bill Evans", shed_status: "learning" } }
+      post tunes_url, params: {tune: {title: "User Tune", composer_names: "Bill Evans", shed_status: "learning"}}
     end
 
     created_tune = Tune.last
@@ -61,7 +61,7 @@ class TunesControllerTest < ActionDispatch::IntegrationTest
 
   test "should create tune with multiple composers" do
     assert_difference("Tune.count") do
-      post tunes_url, params: { tune: { title: "Collab Tune", composer_names: "Miles Davis, John Coltrane" } }
+      post tunes_url, params: {tune: {title: "Collab Tune", composer_names: "Miles Davis, John Coltrane"}}
     end
 
     created_tune = Tune.last
@@ -103,7 +103,7 @@ class TunesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "admin should update tune title and composers" do
-    patch tune_url(@tune), params: { tune: { title: "Updated Title", composer_names: "New Composer" } }
+    patch tune_url(@tune), params: {tune: {title: "Updated Title", composer_names: "New Composer"}}
 
     @tune.reload
     assert_equal "Updated Title", @tune.title
@@ -115,7 +115,7 @@ class TunesControllerTest < ActionDispatch::IntegrationTest
     user_tune = Tune.create!(title: "My Tune", user_id: @regular_user.id)
     sign_in_as(@regular_user)
 
-    patch tune_url(user_tune), params: { tune: { title: "My Updated Tune", composer_names: "Me" } }
+    patch tune_url(user_tune), params: {tune: {title: "My Updated Tune", composer_names: "Me"}}
 
     user_tune.reload
     assert_equal "My Updated Tune", user_tune.title
@@ -126,7 +126,7 @@ class TunesControllerTest < ActionDispatch::IntegrationTest
     admin_tune = Tune.create!(title: "Admin Tune")
     sign_in_as(@regular_user)
 
-    patch tune_url(admin_tune), params: { tune: { title: "Hacked Title", composer_names: "Hacker" } }
+    patch tune_url(admin_tune), params: {tune: {title: "Hacked Title", composer_names: "Hacker"}}
 
     admin_tune.reload
     assert_equal "Admin Tune", admin_tune.title
@@ -137,7 +137,7 @@ class TunesControllerTest < ActionDispatch::IntegrationTest
     admin_tune = Tune.create!(title: "Admin Tune")
     sign_in_as(@regular_user)
 
-    patch tune_url(admin_tune), params: { tune: { shed_status: "learning" } }
+    patch tune_url(admin_tune), params: {tune: {shed_status: "learning"}}
 
     assert_redirected_to tune_url(admin_tune)
     assert_equal "learning", admin_tune.shed_statuses.find_by(user: @regular_user).status
@@ -146,7 +146,7 @@ class TunesControllerTest < ActionDispatch::IntegrationTest
   test "should update shed status to none to remove it" do
     @tune.shed_statuses.create!(user: @admin_user, status: "learning")
 
-    patch tune_url(@tune), params: { tune: { shed_status: "none" } }
+    patch tune_url(@tune), params: {tune: {shed_status: "none"}}
 
     assert_nil @tune.shed_statuses.find_by(user: @admin_user)
   end

@@ -7,6 +7,6 @@ class CreateComposersTunes < ActiveRecord::Migration[8.1]
       t.timestamps
     end
 
-    add_index :composers_tunes, [ :composer_id, :tune_id ], unique: true
+    add_index :composers_tunes, [:composer_id, :tune_id], unique: true
   end
 end

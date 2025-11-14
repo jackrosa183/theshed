@@ -50,8 +50,8 @@ group :development, :test do
   # Static analysis for security vulnerabilities [https://brakemanscanner.org/]
   gem "brakeman", require: false
 
-  # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
-  gem "rubocop-rails-omakase", require: false
+  # StandardRB for Ruby styling [https://github.com/standardrb/standard]
+  gem "standard", require: false
 end
 
 group :development do
@@ -70,3 +70,7 @@ gem "tailwindcss-rails", "~> 4.4"
 gem "htmlbeautifier", "~> 1.4"
 
 gem "pagy", "~> 43.0.3"
+
+gem "rubocop-rails", "~> 2.33"
+
+gem "rubocop-capybara", "~> 2.22"

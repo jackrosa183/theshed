@@ -1,0 +1,30 @@
+actions:
+  - play
+  - listen
+
+feels:
+  - slowly
+  - uptempo
+  - straight
+  - swing
+
+listen_focuses:
+  bass: focus on the bass line, if there is no bass, think about what it would be playing
+  drums: what are they accenting and how is the band fitting in?
+  dynamics: how are the dynamics changing?
+  harmonics: how do the chords work, focus on the voicings and extensions
+  form: think about the overall structure of the tune
+
+play_focuses:
+  key: play in a key you are less comfortable with
+  instrument: if you have access to another instrument play on that
+  sparsely: think about space and letting notes hang out
+  lyrically: focus on playing like a singer, sing while you play if you can
+  simply: keep it straightforward and clear
+  densely: see how much detail and color you can add
+  dynamically: when you want to play louder play softer and vice versa; mix it up
+  rhythmically: think significantly more about the rhythm than the notes
+  melodically: be as true to the melody as possible
+  substitutions: be creative with chord substitutions
+  literally: try to play as closely as what is written or recorded
+  imagine: don't play anything, listen to the form in your head and tap your foot along
